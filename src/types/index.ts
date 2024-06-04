@@ -60,8 +60,10 @@ export interface IBasket {
 }
 
 export interface IOrderFormValidate extends IContactForm, IOrderForm {
-
+	errors: HTMLElement
+	submit: HTMLButtonElement
 }
+
 export interface IOrderFormSuccess {
 	total: number;
 }
