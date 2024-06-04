@@ -111,7 +111,7 @@ interface IOrderResult {
 ### Для описания попапа используется interface IPopup.
 ```
 interface IPopup {
-	content: HTMLElement; Попап.
+	content: HTMLElement; - Попап.
 }
 ```
 
@@ -156,7 +156,7 @@ interface IOrderFormSuccess {
 
 ## Классы.
 
-### Класс Model<T>
+### сlass Model<T>
 Абстрактный класс для хранения данных поступающих с сервера.
 
 Методы:
@@ -227,7 +227,7 @@ interface IOrderFormSuccess {
 - `set list` - Отображает содержимое в корзине.
 - `toggleButton` - Переключение состояния кнопки.
 
-### Класс Popup
+### class Popup
 Отвечает за работу с попапами, наследуется от класса Component и дополняется интерфейсом IPopup. 
 
 Свойства:
@@ -240,7 +240,7 @@ interface IOrderFormSuccess {
 - `close` - Закрытие попапа.
 - `render` - Переопределяет метод, принимает объект с данными и возвращает DOM-элемент.
 
-### Класс Form<T>
+### class Form<T>
 Отвечает за работу с формой заказа, наследуется от класса Component и дополняется интерфейсом IOrderFormValidate.
 
 Методы:
@@ -249,7 +249,7 @@ interface IOrderFormSuccess {
 - `errors` - Сообщает об ошибке.
 - `render` - Принимает объект с данными и возвращает DOM-элемент.
 
-### Класс SuccessFormOrder>
+### class SuccessFormOrder>
 Отвечает за успешную форму оплаты заказа.
 
 Свойства:
