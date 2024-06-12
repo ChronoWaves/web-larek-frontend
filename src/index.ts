@@ -44,7 +44,7 @@ const handleApiError = (error: unknown) => {
 };
 
 
-const fetchProductList = async () => {
+const setProductList = async () => {
 	try {
 		const productList = await api.getProductList();
 		appStateManager.setCatalog(productList);
@@ -204,7 +204,7 @@ events.on('order:success', (res: IOrderResult) => {
 });
 
 const initializeApp = async () => {
-	await fetchProductList();
+	await setProductList();
 };
 
 initializeApp();
