@@ -1,32 +1,37 @@
-export interface IApi {
-	getProductId: (id: string) => Promise<IProduct>;
+interface IStoreApi {
+	getProductById: (id: string) => Promise<IProduct>;
 	getProductList: () => Promise<IProduct[]>;
-	orderProduct: (order: IOrder) => Promise<IOrderResult>;
+	submitOrder: (order: IOrder) => Promise<IOrderResult>;
 }
 
-export interface IPage {
-	counter: number;
-	catalog: HTMLElement[];
-	locked: boolean;
-}
-
-export interface IAppState {
-	catalog: IProduct[];
-	basket: IProduct[];
-	order: IOrder | null;
-}
-
-export interface IProduct {
+interface IProduct {
 	id: string;
-    title: string;
-    category: string;
 	image: string;
+	title: string;
+	category: string;
 	price: number | null;
 	description: string;
 	selected: boolean;
 }
 
-export interface IOrder {
+interface IPage {
+	counter: number;
+	catalog: HTMLElement[];
+	locked: boolean;
+}
+
+interface IAppState {
+	catalog: IProduct[];
+	basket: IProduct[];
+	order: IOrder | null;
+
+	setCatalog(items: IProduct[]): void;
+	addItemFromBasket(product: IProduct): void;
+	removeItemFromBasket(product: IProduct): void;
+	calculateTotalBasketPrice(): number;
+}
+
+interface IOrder {
 	items: string[];
 	payment: string;
 	total: number;
@@ -35,35 +40,54 @@ export interface IOrder {
 	phone: string;
 }
 
-export interface IOrderResult {
+interface IOrderResult {
 	id: string;
 	total: number;
 }
 
-export interface IContactForm {
+interface IPopup {
+	content: HTMLElement;
+}
+
+interface IBasket {
+	list: HTMLElement[];
+	total: number;
+}
+
+interface IBasketProduct extends IProduct {
+	index: number;
+}
+
+interface IContactsForm {
 	phone: string;
 	email: string;
 }
 
-export interface IOrderForm {
+interface IOrderForm {
 	address: string;
 	payment: string;
 }
 
-export interface IPopup {
-	content: HTMLElement;
+interface IOrderValidate {
+	phone: string;
+	email: string;
+	address: string;
+	payment: string;
 }
 
-export interface IBasket {
-	items: HTMLElement[];
-	total: number;
+interface ISuccessForm {
+	description: number;
 }
 
-export interface IOrderFormValidate extends IContactForm, IOrderForm {
-	errors: HTMLElement
-	submit: HTMLButtonElement
+interface IActions {
+	onClick: (event: MouseEvent) => void;
 }
 
-export interface IOrderFormSuccess {
-	total: number;
+interface IFormState {
+	valid: boolean;
+	errors: string[];
 }
+
+type FormErrors = Partial<Record<keyof IOrder, string>>;
+
+export { IStoreApi, IProduct, IPage, IAppState, IOrder, IOrderResult, IPopup, IBasket, IBasketProduct, IContactsForm, IOrderForm, IOrderValidate, ISuccessForm, IActions, IFormState, FormErrors }
