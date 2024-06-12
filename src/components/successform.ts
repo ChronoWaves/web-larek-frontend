@@ -14,7 +14,6 @@ export class SuccessForm extends Component<ISuccessForm> {
 		this.setupButtonClickListener(actions);
 	}
 
-
 	set description(value: number) {
 		this.setText(this._description, 'Списано ' + value + ' синапсов');
 	}

@@ -1,4 +1,4 @@
-interface IStoreApi {
+interface ILarekApi {
 	getProductById: (id: string) => Promise<IProduct>;
 	getProductList: () => Promise<IProduct[]>;
 	submitOrder: (order: IOrder) => Promise<IOrderResult>;
@@ -27,7 +27,7 @@ interface IAppState {
 
 	setCatalog(items: IProduct[]): void;
 	addItemFromBasket(product: IProduct): void;
-	removeItemFromBasket(product: IProduct): void;
+	removeFromBasket(product: IProduct): void;
 	calculateTotalBasketPrice(): number;
 }
 
@@ -45,7 +45,7 @@ interface IOrderResult {
 	total: number;
 }
 
-interface IPopup {
+interface IModal {
 	content: HTMLElement;
 }
 
@@ -90,4 +90,4 @@ interface IFormState {
 
 type FormErrors = Partial<Record<keyof IOrder, string>>;
 
-export { IStoreApi, IProduct, IPage, IAppState, IOrder, IOrderResult, IPopup, IBasket, IBasketProduct, IContactsForm, IOrderForm, IOrderValidate, ISuccessForm, IActions, IFormState, FormErrors }
+export { ILarekApi, IProduct, IPage, IAppState, IOrder, IOrderResult, IModal, IBasket, IBasketProduct, IContactsForm, IOrderForm, IOrderValidate, ISuccessForm, IActions, IFormState, FormErrors }

@@ -8,6 +8,7 @@ export class ContactsForm extends Form<IContactsForm> {
 
 	constructor(container: HTMLFormElement, events: IEvents) {
 		super(container, events);
+
 		this._phone = container.elements.namedItem('phone') as HTMLInputElement;
 		this._email = container.elements.namedItem('email') as HTMLInputElement;
 	}

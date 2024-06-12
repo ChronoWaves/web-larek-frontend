@@ -5,27 +5,26 @@ import { IPage } from '../types/index';
 
 export class Page extends Component<IPage> {
 	protected _counter: HTMLElement;
-	protected _gallery: HTMLElement;
+	protected _catalog: HTMLElement;
 	protected _wrapper: HTMLElement;
 	protected _basket: HTMLElement;
 
 	constructor(container: HTMLElement, protected events: IEvents) {
 		super(container);
 
-		this._counter = ensureElement<HTMLElement>('.header__basket-counter', container);
-		this._gallery = ensureElement<HTMLElement>('.gallery', container);
-		this._wrapper = ensureElement<HTMLElement>('.page__wrapper', container);
-		this._basket = ensureElement<HTMLElement>('.header__basket', container);
+		this._counter = ensureElement<HTMLElement>('.header__basket-counter');
+		this._catalog = ensureElement<HTMLElement>('.gallery');
+		this._wrapper = ensureElement<HTMLElement>('.page__wrapper');
+		this._basket = ensureElement<HTMLElement>('.header__basket');
 
 		this.setupBasketClickListener();
 	}
-
 	set counter(value: number) {
 		this.setText(this._counter, String(value));
 	}
 
-	set gallery(items: HTMLElement[]) {
-		this._gallery.replaceChildren(...items);
+	set catalog(items: HTMLElement[]) {
+		this._catalog.replaceChildren(...items);
 	}
 
 	set locked(value: boolean) {

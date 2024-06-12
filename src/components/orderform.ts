@@ -9,6 +9,7 @@ export class OrderForm extends Form<IOrderForm> {
 
 	constructor(container: HTMLFormElement, protected events: IEvents) {
 		super(container, events);
+
 		this._card = container.elements.namedItem('card') as HTMLButtonElement;
 		this._cash = container.elements.namedItem('cash') as HTMLButtonElement;
 		this._address = container.elements.namedItem('address') as HTMLInputElement;
@@ -17,8 +18,8 @@ export class OrderForm extends Form<IOrderForm> {
 	}
 
 	clear() {
-		this.togglePaymentButton(this._card, false);
-		this.togglePaymentButton(this._cash, false);
+		this._card.classList.remove('button_alt-active');
+		this._cash.classList.remove('button_alt-active');
 		this._address.value = '';
 	}
 
@@ -31,7 +32,7 @@ export class OrderForm extends Form<IOrderForm> {
 		buttonToActivate.addEventListener('click', () => {
 			this.togglePaymentButton(buttonToActivate, true);
 			this.togglePaymentButton(buttonToDeactivate, false);
-			this.onInputChange('payment', paymentType);
+			this.emitInputChang('payment', paymentType);
 		});
 	}
 

@@ -69,6 +69,7 @@ export class AppState extends Model<IAppState> {
 		}
 
 		this.formErrors = errors;
+
 		this.events.emit('orderFormErrors:change', this.formErrors);
 
 		return Object.keys(errors).length === 0;

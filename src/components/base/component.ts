@@ -11,18 +11,20 @@ export abstract class Component<T> {
 		}
 	}
 
-	setDisabled(element: HTMLElement, state: boolean) {
-		if (element) {
-			if (state) element.setAttribute('disabled', 'disabled');
-			else element.removeAttribute('disabled');
-		}
-	}
-
-	protected setHidden(element: HTMLElement) {
+	setDisabled = (element: HTMLElement, state: boolean): void => {
+        if (element) {
+            if (state) {
+                element.setAttribute('disabled', 'disabled');
+            } else {
+                element.removeAttribute('disabled');
+            }
+        }
+    }
+	protected hideElement(element: HTMLElement) {
 		element.style.display = 'none';
 	}
 
-	protected setVisible(element: HTMLElement) {
+	protected showElement(element: HTMLElement) {
 		element.style.removeProperty('display');
 	}
 

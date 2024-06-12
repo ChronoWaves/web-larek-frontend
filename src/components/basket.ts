@@ -1,4 +1,4 @@
-import { IBasket, IBasketProduct, IActions } from '../types';
+import { IBasket, IBasketProduct, IActions} from '../types';
 import { Component } from './base/component';
 import { IEvents } from './base/events';
 import { ensureElement } from '../utils/utils';
