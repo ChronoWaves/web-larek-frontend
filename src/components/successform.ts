@@ -1,6 +1,6 @@
 import { ISuccessForm, IActions } from '../types';
 import { ensureElement } from '../utils/utils';
-import { Component } from './base/component';
+import { Component } from './base/Component';
 
 export class SuccessForm extends Component<ISuccessForm> {
 	protected _button: HTMLButtonElement;

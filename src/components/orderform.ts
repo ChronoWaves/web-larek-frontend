@@ -1,15 +1,15 @@
 import { IOrderForm } from '../types';
 import { IEvents } from './base/events';
-import { Form } from './common/form';
+import { Form } from './common/Form';
+import { EventNames } from './../utils/constants';
 
 export class OrderForm extends Form<IOrderForm> {
 	protected _card: HTMLButtonElement;
 	protected _cash: HTMLButtonElement;
 	protected _address: HTMLInputElement;
 
-	constructor(container: HTMLFormElement, protected events: IEvents) {
-		super(container, events);
-
+	constructor(container: HTMLFormElement, events: IEvents) {
+		super(container, events, EventNames.OrderInputChange);
 		this._card = container.elements.namedItem('card') as HTMLButtonElement;
 		this._cash = container.elements.namedItem('cash') as HTMLButtonElement;
 		this._address = container.elements.namedItem('address') as HTMLInputElement;
@@ -32,7 +32,7 @@ export class OrderForm extends Form<IOrderForm> {
 		buttonToActivate.addEventListener('click', () => {
 			this.togglePaymentButton(buttonToActivate, true);
 			this.togglePaymentButton(buttonToDeactivate, false);
-			this.emitInputChang('payment', paymentType);
+			this.emitInputChange('payment', paymentType);
 		});
 	}
 

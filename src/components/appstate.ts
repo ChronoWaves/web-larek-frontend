@@ -1,5 +1,6 @@
-import { Model } from './base/model';
+import { Model } from './base/Model';
 import { FormErrors, IAppState, IOrder, IOrderValidate, IProduct } from '../types/index';
+import { EventNames } from './../utils/constants';
 
 export class Product extends Model<IProduct> {
 	id: string;
@@ -20,7 +21,7 @@ export class AppState extends Model<IAppState> {
 
 	setCatalog(items: IProduct[]) {
 		this.catalog = items.map((item) => new Product(item, this.events));
-		this.emitChanges('catalog:changed', { catalog: this.catalog });
+		this.emitChanges(EventNames.CatalogChanged, { catalog: this.catalog });
 	}
 
 	addItemFromBasket(product: Product) {
@@ -60,37 +61,36 @@ export class AppState extends Model<IAppState> {
 
 	validateOrder(): boolean {
 		const errors: typeof this.formErrors = {};
-
+	
 		if (!this.order.address) {
-			errors.address = 'Необходимо указать адрес';
+		  errors.address = 'Необходимо указать адрес';
 		}
 		if (!this.order.payment) {
-			errors.payment = 'Необходимо выбрать способ оплаты';
+		  errors.payment = 'Необходимо выбрать способ оплаты';
 		}
-
+	
 		this.formErrors = errors;
-
-		this.events.emit('orderFormErrors:change', this.formErrors);
-
+		this.events.emit(EventNames.OrderFormErrorsChange, this.formErrors);
+	
 		return Object.keys(errors).length === 0;
-	}
-
-	validateContacts(): boolean {
+	  }
+	
+	  validateContacts(): boolean {
 		const errors: typeof this.formErrors = {};
-
+	
 		if (!this.order.email) {
-			errors.email = 'Необходимо указать email';
+		  errors.email = 'Необходимо указать email';
 		}
-
+	
 		if (!this.order.phone) {
-			errors.phone = 'Необходимо указать телефон';
+		  errors.phone = 'Необходимо указать телефон';
 		}
-
+	
 		this.formErrors = errors;
-		this.events.emit('contactsFormErrors:change', this.formErrors);
-
+		this.events.emit(EventNames.ContactsFormErrorsChange, this.formErrors);
+	
 		return Object.keys(errors).length === 0;
-	}
+	  }
 
 	addBasketItemsToOrder(): void {
 		this.order.items = this.basket.map((product) => product.id);

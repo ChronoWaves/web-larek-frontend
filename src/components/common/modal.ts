@@ -1,7 +1,8 @@
-import { Component } from '../base/component';
+import { Component } from '../base/Component';
 import { ensureElement } from '../../utils/utils';
 import { IEvents } from '../base/events';
 import { IModal } from '../../types';
+import { EventNames } from '../../utils/constants';
 
 export class Modal extends Component<IModal> {
 	protected _button: HTMLButtonElement;
@@ -16,21 +17,23 @@ export class Modal extends Component<IModal> {
 		this._button.addEventListener('click', this.close.bind(this));
 		this.container.addEventListener('click', this.close.bind(this));
 		this._content.addEventListener('click', (evt) => evt.stopPropagation());
+
+		document.addEventListener('keydown', this._handleEscape);
 	}
 
-	set content(value: HTMLElement) {
-		this._content.replaceChildren(value);
-	}
+	set content(value: HTMLElement) { 
+		this._content.replaceChildren(value); 
+	} 
 
 	open() {
-		this.container.classList.add('modal_active');
-		this.events.emit('modal:open');
+		this._toggleModal(true);
+		this.events.emit(EventNames.ModalOpen);
 	}
 
 	close() {
-		this.container.classList.remove('modal_active');
+		this._toggleModal(false);
 		this.content = null;
-		this.events.emit('modal:close');
+		this.events.emit(EventNames.ModalClose);
 	}
 
 	render(data: IModal): HTMLElement {
@@ -38,4 +41,14 @@ export class Modal extends Component<IModal> {
 		this.open();
 		return this.container;
 	}
+
+	_toggleModal(state: boolean = true) {
+		this.toggleClass(this.container, 'modal_active', state);
+	}
+
+	_handleEscape = (evt: KeyboardEvent) => {
+		if (evt.key === 'Escape') {
+			this.close();
+		}
+	};
 }

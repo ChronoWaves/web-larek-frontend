@@ -1,7 +1,8 @@
-import { Component } from './base/component';
+import { Component } from './base/Component';
 import { IEvents } from './base/events';
 import { ensureElement } from '../utils/utils';
 import { IPage } from '../types/index';
+import { EventNames } from './../utils/constants';
 
 export class Page extends Component<IPage> {
 	protected _counter: HTMLElement;
@@ -33,7 +34,7 @@ export class Page extends Component<IPage> {
 
 	private setupBasketClickListener() {
 		this._basket.addEventListener('click', () => {
-			this.events.emit('basket:open');
+			this.events.emit(EventNames.BasketOpen);
 		});
 	}
 

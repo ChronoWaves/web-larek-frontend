@@ -1,17 +1,17 @@
 import './scss/styles.scss';
-import { API_URL, CDN_URL } from './utils/constants';
+import { API_URL, CDN_URL, EventNames } from './utils/constants';
 import { EventEmitter } from './components/base/events';
 import { ensureElement, cloneTemplate } from './utils/utils';
-import { Page } from './components/page';
-import { LarekApi } from './components/larekapi';
-import { Card, CardPreview } from './components/card';
-import { AppState, Product } from './components/appstate';
-import { Modal } from './components/common/modal';
-import { Basket, ProductItemBasket } from './components/basket';
-import { OrderForm } from './components/orderform';
+import { Page } from './components/Page';
+import { LarekApi } from './components/LarekApi';
+import { Card, CardPreview } from './components/Card';
+import { AppState, Product } from './components/AppState';
+import { Modal } from './components/common/Modal';
+import { Basket, ProductItemBasket } from './components/Basket';
+import { OrderForm } from './components/OrderForm';
 import { IContactsForm, IOrderForm, IOrderResult, IOrderValidate } from './types';
-import { ContactsForm } from './components/contactsform';
-import { SuccessForm } from './components/successform';
+import { ContactsForm } from './components/ContactsForm';
+import { SuccessForm } from './components/SuccessForm';
 
 const templates = {
   cardCatalog: ensureElement<HTMLTemplateElement>('#card-catalog'),
@@ -36,10 +36,10 @@ const successForm = new SuccessForm(cloneTemplate(templates.success), {
 });
 
 const setupEventHandlers = () => {
-  events.on('catalog:changed', () => {
+  events.on(EventNames.CatalogChanged, () => {
     page.catalog = appStateManager.catalog.map((item) => {
       const card = new Card(cloneTemplate(templates.cardCatalog), {
-        onClick: () => events.emit('card:select', item),
+        onClick: () => events.emit(EventNames.CardSelect, item),
       });
       return card.render({
         title: item.title,
@@ -50,14 +50,14 @@ const setupEventHandlers = () => {
     });
   });
 
-  events.on('card:select', (product: Product) => {
+  events.on(EventNames.CardSelect, (product: Product) => {
     page.locked = true;
     const productItemPreview = new CardPreview(cloneTemplate(templates.cardPreview), {
       onClick: () => {
         if (product.selected) {
-          events.emit('basket:removeFromBasket', product);
+          events.emit(EventNames.BasketRemoveFromBasket, product);
         } else {
-          events.emit('card:addToBasket', product);
+          events.emit(EventNames.CardAddToBasket, product);
         }
         productItemPreview.toggleButtonLabel(product.selected);
       },
@@ -75,13 +75,13 @@ const setupEventHandlers = () => {
     });
   });
 
-  events.on('card:addToBasket', (product: Product) => {
+  events.on(EventNames.CardAddToBasket, (product: Product) => {
     appStateManager.addItemFromBasket(product);
     product.selected = true;
     page.counter = appStateManager.getProductCountInBasket();
   });
 
-  events.on('basket:removeFromBasket', (product: Product) => {
+  events.on(EventNames.BasketRemoveFromBasket, (product: Product) => {
     appStateManager.removeItemFromBasket(product);
     product.selected = false;
     basket.total = appStateManager.calculateTotalBasketPrice();
@@ -92,11 +92,11 @@ const setupEventHandlers = () => {
     }
   });
 
-  events.on('basket:open', () => {
+  events.on(EventNames.BasketOpen, () => {
     page.locked = true;
     const basketItems = appStateManager.basket.map((item, index) => {
       const productItem = new ProductItemBasket(cloneTemplate(templates.cardBasket), {
-        onClick: () => events.emit('basket:removeFromBasket', item),
+        onClick: () => events.emit(EventNames.BasketRemoveFromBasket, item),
       });
       return productItem.render({
         title: item.title,
@@ -112,7 +112,7 @@ const setupEventHandlers = () => {
     });
   });
 
-  events.on('basket:order', () => {
+  events.on(EventNames.BasketOrder, () => {
     modal.render({
       content: orderForm.render({
         address: '',
@@ -123,21 +123,25 @@ const setupEventHandlers = () => {
     });
   });
 
-  events.on('modal:close', () => {
+  events.on(EventNames.ModalClose, () => {
     page.locked = false;
   });
 
-  events.on('orderInput:change', (data: { field: keyof IOrderForm; value: string }) => {
+  events.on(EventNames.OrderInputChange, (data: { field: keyof IOrderForm; value: string }) => {
     appStateManager.setOrderFields(data.field, data.value);
   });
 
-  events.on('orderFormErrors:change', (errors: Partial<IOrderValidate>) => {
+  events.on(EventNames.ContactsInputChange, (data: { field: keyof IContactsForm; value: string }) => {
+    appStateManager.setOrderFields(data.field, data.value);
+  });
+
+  events.on(EventNames.OrderFormErrorsChange, (errors: Partial<IOrderValidate>) => {
     const { payment, address } = errors;
     orderForm.valid = !payment && !address;
     orderForm.errors = Object.values({ payment, address }).filter(Boolean).join('; ');
   });
 
-  events.on('order:submit', () => {
+  events.on(EventNames.OrderSubmit, () => {
     appStateManager.order.total = appStateManager.calculateTotalBasketPrice();
     appStateManager.addBasketItemsToOrder();
     modal.render({
@@ -148,16 +152,16 @@ const setupEventHandlers = () => {
     });
   });
 
-  events.on('contactsFormErrors:change', (errors: Partial<IContactsForm>) => {
+  events.on(EventNames.ContactsFormErrorsChange, (errors: Partial<IContactsForm>) => {
     const { email, phone } = errors;
     contactsForm.valid = !email && !phone;
     contactsForm.errors = Object.values({ phone, email }).filter(Boolean).join('; ');
   });
 
-  events.on('contacts:submit', () => {
+  events.on(EventNames.ContactsSubmit, () => {
     api.submitOrder(appStateManager.order)
       .then((res) => {
-        events.emit('order:success', res);
+        events.emit(EventNames.OrderSuccess, res);
         appStateManager.clearBasket();
         appStateManager.clearOrder();
         page.counter = 0;
@@ -168,7 +172,7 @@ const setupEventHandlers = () => {
       .catch(console.log);
   });
 
-  events.on('order:success', (res: IOrderResult) => {
+  events.on(EventNames.OrderSuccess, (res: IOrderResult) => {
     modal.render({
       content: successForm.render({
         description: res.total,
