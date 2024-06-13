@@ -1,36 +1,40 @@
+/*! ../../utils/constants */
+
 /*! ../../utils/utils */
 
-/*! ../base/component */
+/*! ../base/Component */
 
 /*! ../utils/utils */
 
+/*! ./../utils/constants */
+
+/*! ./base/Component */
+
+/*! ./base/Model */
+
 /*! ./base/api */
 
-/*! ./base/component */
+/*! ./common/Form */
 
-/*! ./base/model */
+/*! ./components/AppState */
 
-/*! ./common/form */
+/*! ./components/Basket */
 
-/*! ./components/appstate */
+/*! ./components/Card */
+
+/*! ./components/ContactsForm */
+
+/*! ./components/LarekApi */
+
+/*! ./components/OrderForm */
+
+/*! ./components/Page */
+
+/*! ./components/SuccessForm */
 
 /*! ./components/base/events */
 
-/*! ./components/basket */
-
-/*! ./components/card */
-
-/*! ./components/common/modal */
-
-/*! ./components/contactsform */
-
-/*! ./components/larekapi */
-
-/*! ./components/orderform */
-
-/*! ./components/page */
-
-/*! ./components/successform */
+/*! ./components/common/Modal */
 
 /*! ./scss/styles.scss */
 
@@ -51,11 +55,11 @@
   \******************************/
 
 /*!********************************!*\
-  !*** ./src/components/card.ts ***!
+  !*** ./src/components/Card.ts ***!
   \********************************/
 
 /*!********************************!*\
-  !*** ./src/components/page.ts ***!
+  !*** ./src/components/Page.ts ***!
   \********************************/
 
 /*!********************************!*\
@@ -63,49 +67,49 @@
   \********************************/
 
 /*!**********************************!*\
-  !*** ./src/components/basket.ts ***!
+  !*** ./src/components/Basket.ts ***!
   \**********************************/
 
 /*!************************************!*\
-  !*** ./src/components/appstate.ts ***!
+  !*** ./src/components/AppState.ts ***!
+  \************************************/
+
+/*!************************************!*\
+  !*** ./src/components/LarekApi.ts ***!
   \************************************/
 
 /*!************************************!*\
   !*** ./src/components/base/api.ts ***!
   \************************************/
 
-/*!************************************!*\
-  !*** ./src/components/larekapi.ts ***!
-  \************************************/
-
 /*!*************************************!*\
-  !*** ./src/components/orderform.ts ***!
+  !*** ./src/components/OrderForm.ts ***!
   \*************************************/
 
 /*!**************************************!*\
-  !*** ./src/components/base/model.ts ***!
+  !*** ./src/components/base/Model.ts ***!
   \**************************************/
+
+/*!***************************************!*\
+  !*** ./src/components/SuccessForm.ts ***!
+  \***************************************/
 
 /*!***************************************!*\
   !*** ./src/components/base/events.ts ***!
   \***************************************/
 
 /*!***************************************!*\
-  !*** ./src/components/common/form.ts ***!
-  \***************************************/
-
-/*!***************************************!*\
-  !*** ./src/components/successform.ts ***!
+  !*** ./src/components/common/Form.ts ***!
   \***************************************/
 
 /*!****************************************!*\
-  !*** ./src/components/common/modal.ts ***!
+  !*** ./src/components/ContactsForm.ts ***!
   \****************************************/
 
 /*!****************************************!*\
-  !*** ./src/components/contactsform.ts ***!
+  !*** ./src/components/common/Modal.ts ***!
   \****************************************/
 
 /*!******************************************!*\
-  !*** ./src/components/base/component.ts ***!
+  !*** ./src/components/base/Component.ts ***!
   \******************************************/
