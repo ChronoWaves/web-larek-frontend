@@ -8,11 +8,11 @@
 
 /*! ./../utils/constants */
 
+/*! ./base/Api */
+
 /*! ./base/Component */
 
 /*! ./base/Model */
-
-/*! ./base/api */
 
 /*! ./common/Form */
 
@@ -32,7 +32,7 @@
 
 /*! ./components/SuccessForm */
 
-/*! ./components/base/events */
+/*! ./components/base/Events */
 
 /*! ./components/common/Modal */
 
@@ -79,7 +79,7 @@
   \************************************/
 
 /*!************************************!*\
-  !*** ./src/components/base/api.ts ***!
+  !*** ./src/components/base/Api.ts ***!
   \************************************/
 
 /*!*************************************!*\
@@ -95,7 +95,7 @@
   \***************************************/
 
 /*!***************************************!*\
-  !*** ./src/components/base/events.ts ***!
+  !*** ./src/components/base/Events.ts ***!
   \***************************************/
 
 /*!***************************************!*\
