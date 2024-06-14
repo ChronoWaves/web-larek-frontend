@@ -1,5 +1,5 @@
 import { IContactsForm } from '../types';
-import { IEvents } from './base/events';
+import { IEvents } from './base/Events';
 import { Form } from './common/Form';
 import { EventNames } from './../utils/constants';
 
@@ -8,7 +8,7 @@ export class ContactsForm extends Form<IContactsForm> {
 	protected _email: HTMLInputElement;
 
 	constructor(container: HTMLFormElement, events: IEvents) {
-		super(container, events, EventNames. ContactsInputChange);
+		super(container, events, EventNames.ContactsInputChange);
 		this._phone = container.elements.namedItem('phone') as HTMLInputElement;
 		this._email = container.elements.namedItem('email') as HTMLInputElement;
 	  }

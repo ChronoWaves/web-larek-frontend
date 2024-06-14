@@ -1,5 +1,5 @@
 import { Component } from './base/Component';
-import { IEvents } from './base/events';
+import { IEvents } from './base/Events';
 import { ensureElement } from '../utils/utils';
 import { IPage } from '../types/index';
 import { EventNames } from './../utils/constants';
@@ -20,6 +20,7 @@ export class Page extends Component<IPage> {
 
 		this.setupBasketClickListener();
 	}
+
 	set counter(value: number) {
 		this.setText(this._counter, String(value));
 	}
@@ -29,16 +30,12 @@ export class Page extends Component<IPage> {
 	}
 
 	set locked(value: boolean) {
-		this.toggleLock(value);
+		this.toggleClass(this._wrapper, 'page__wrapper_locked', value);
 	}
 
 	private setupBasketClickListener() {
 		this._basket.addEventListener('click', () => {
 			this.events.emit(EventNames.BasketOpen);
 		});
-	}
-
-	private toggleLock(isLocked: boolean) {
-		this._wrapper.classList.toggle('page__wrapper_locked', isLocked);
 	}
 }

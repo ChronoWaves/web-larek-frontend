@@ -1,5 +1,5 @@
 import { IOrderForm } from '../types';
-import { IEvents } from './base/events';
+import { IEvents } from './base/Events';
 import { Form } from './common/Form';
 import { EventNames } from './../utils/constants';
 
@@ -18,8 +18,8 @@ export class OrderForm extends Form<IOrderForm> {
 	}
 
 	clear() {
-		this._card.classList.remove('button_alt-active');
-		this._cash.classList.remove('button_alt-active');
+		this.toggleClass(this._card, 'button_alt-active', false);
+		this.toggleClass(this._cash, 'button_alt-active', false);
 		this._address.value = '';
 	}
 
@@ -30,13 +30,9 @@ export class OrderForm extends Form<IOrderForm> {
 
 	private setupPaymentListener(buttonToActivate: HTMLButtonElement, paymentType: string, buttonToDeactivate: HTMLButtonElement) {
 		buttonToActivate.addEventListener('click', () => {
-			this.togglePaymentButton(buttonToActivate, true);
-			this.togglePaymentButton(buttonToDeactivate, false);
+			this.toggleClass(buttonToActivate, 'button_alt-active', true);
+			this.toggleClass(buttonToDeactivate, 'button_alt-active', false);
 			this.emitInputChange('payment', paymentType);
 		});
-	}
-
-	private togglePaymentButton(button: HTMLButtonElement, isActive: boolean) {
-		button.classList.toggle('button_alt-active', isActive);
 	}
 }

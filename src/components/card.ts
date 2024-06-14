@@ -65,7 +65,7 @@ export class Card extends Component<IProduct> {
     }
 
     get price(): number {
-        return Number(this._price.textContent) || 0;
+        return Number(this._price.textContent?.replace(' синапсов', '') || 0);
     }
 
     set description(value: string) {

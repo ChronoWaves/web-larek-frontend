@@ -1,6 +1,6 @@
 import { IBasket, IBasketProduct, IActions } from '../types';
 import { Component } from './base/Component';
-import { IEvents } from './base/events';
+import { IEvents } from './base/Events';
 import { ensureElement } from '../utils/utils';
 
 export class Basket extends Component<IBasket> {
